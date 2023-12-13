@@ -1,0 +1,131 @@
+#include <iostream>
+#include <random>
+#include <chrono>
+#include <thread>
+#include <unistd.h>
+using namespace std;
+using namespace chrono;
+using namespace this_thread;
+void up(int x, int n, int m) {
+    for (int i = x; i <= 15; i++) {
+        int l = 100;
+        while (l--) {
+            cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+            for (int j = 1; j < i; j++)
+                cout << j << " ";
+            cout << "[" << i << "] ";
+            for (int k = i + 1; k <= 15; k++)
+                cout << k << " ";
+            cout << "\n";
+            sleep_for(milliseconds(10));
+        }
+        if (i == m) {
+            cout << "Please Enter to the elevator.\n";
+            sleep_for(milliseconds(2000));
+        }
+        if (i == n) {
+            cout << "Welcome to the " << n << "th floor\n";
+            break;
+        }
+    }
+}
+
+void Up(int x, int m) {
+    for (int i = x; i <= m; i++) {
+        int l = 100;
+        while (l--) {
+            cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+            for (int j = 1; j < i; j++)
+                cout << j << " ";
+            cout << "[" << i << "] ";
+            for (int k = i + 1; k <= 15; k++)
+                cout << k << " ";
+            cout << "\n";
+           sleep_for(milliseconds(10));
+        }
+    }
+
+}
+
+void Down(int x, int m) {
+    for (int i = x; i >= m; i--) {
+        int l = 100;
+        while (l--) {
+            cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+            for (int j = 1; j < i; j++)
+                cout << j << " ";
+            cout << "[" << i << "] ";
+            for (int k = i + 1; k <= 15; k++)
+                cout << k << " ";
+            cout << "\n";
+            sleep_for(milliseconds(10));
+        }
+    }
+}
+
+void down(int x, int n, int m) {
+    for (int i = x; i > 1; i--) {
+        int l = 100;
+        while (l--) {
+            cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+            for (int j = 1; j < i; j++)
+                cout << j << " ";
+            cout << "[" << i << "] ";
+            for (int k = i + 1; k <= 15; k++)
+                cout << k << " ";
+            cout << "\n";
+            sleep_for(milliseconds(10));
+        }
+        if (i == m) {
+            cout << "Please Enter to the elevator.\n";
+            sleep_for(milliseconds(1000));
+        }
+
+        if (i == n) {
+            cout << "Welcome to the " << n << "th floor\n";
+            break;
+        }
+    }
+}
+
+int main() {
+    int n, m;
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> Elevator(1, 15);
+    int x = Elevator(gen);
+    cout << "The elevator is currently on " << x << "th floor.\n";
+    cout << "Welcome to The Elevator\nWhich floor you are in: ";
+    cin >> m;
+    cout << "Choose the floor you want to go: ";
+    cin >> n;
+    sleep_for(milliseconds(1000));
+
+    if (x < n) {
+        if (x > m) {
+            Down(x, m);
+            Up(m, n);
+        }
+        else if(n < m)
+        {
+            Up(x, m);
+            cout << "Please Enter to the elevator.\n";
+            sleep_for(milliseconds(1000));
+            Down(m,n);
+            cout << "Welcome to the " << n << "th floor\n";
+
+        }
+        else {
+            up(x, n, m);
+        }
+    } else {
+        if (m < n) {
+            Down(x, m);
+            up(m, n, m);
+        } else if (m > n) {
+            down(x, n, m);
+        }
+    }
+
+    return 0;
+}
